@@ -8,7 +8,7 @@ Sign Language is a non-verbal and visual language that is widely used all over t
   - The 'main' branch contains the source code for the React based client app (hosted on Vercel).  
 - To run the client locally:
   - Clone the repo.
-    > git clone https://github.com/Manishka1/isl-sign-language.git
+    > git clone https://github.com/Manishka1/isl-sign-languag.git
   - Checkout into the 'main' branch.
     > git checkout main
   - Enter the 'client' folder.
@@ -26,6 +26,3 @@ The project 'Sanket: An Avatar based Indian Sign Language Toolkit' has been crea
 
 ## Contributors  
 - Manishka Singh 
-- Rashi Chaudhary
-- Rimjhim
-- Payal Singh
