@@ -34,7 +34,7 @@ function Convert() {
 
   const textFromInput = useRef(null);
 
-  const { transcript, listening, resetTranscript } = useSpeechRecognition();
+  const { transcript, resetTranscript } = useSpeechRecognition();
 
   // ---------------- THREE SETUP ----------------
   useEffect(() => {
@@ -86,7 +86,7 @@ function Convert() {
 
       defaultPose(ref);
     });
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bot]);
 
   // ---------------- ANIMATION LOOP ----------------
