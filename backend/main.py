@@ -38,7 +38,7 @@ KNOWN_WORDS = {
     "ZERO","ONE","TWO","THREE","FOUR",
     "FIVE","SIX","SEVEN","EIGHT","NINE","TEN",
     "HAPPY","SAD","BIG","SMALL","GOOD",
-    "BAD","LOVE","HELP","STOP","START"
+    "BAD","LOVE","HELP","STOP","START","TIME","PERSON"
 }
 
 NUMBER_MAP = {
