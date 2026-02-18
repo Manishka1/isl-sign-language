@@ -99,7 +99,21 @@ if translate_btn:
 The system extracts grammatical roles using NLP and restructures
 the sentence according to ISL grammar order.
 Words not found in the animation dictionary are converted
-to alphabet animations.
+to alphabet animations. the given words are trained on model as
+per the availability of animation file for hand gestures. The model is trained on 60+ words. Given :
+"I","YOU","HE","SHE","WE",
+"MOTHER","FATHER","BROTHER","SISTER","FRIEND",
+"SCHOOL","COLLEGE","HOME","OFFICE","MARKET",
+"FOOD","WATER","BOOK","MONEY","PHONE",
+"GO","COME","EAT","DRINK","READ","WRITE",
+"PLAY","WORK","STUDY","BUY",
+"TODAY","TOMORROW","YESTERDAY","NOW","LATER",
+"YES","NO","THANK","SORRY","PLEASE",
+"ZERO","ONE","TWO","THREE","FOUR",
+"FIVE","SIX","SEVEN","EIGHT","NINE","TEN",
+"HAPPY","SAD","BIG","SMALL","GOOD",
+"BAD","LOVE","HELP","STOP","START","TIME","PERSON"
+
 """)
 
         except Exception as e:
