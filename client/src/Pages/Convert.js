@@ -20,6 +20,11 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 function Convert() {
 
+  // ================= API URL =================
+  const API_URL =
+    process.env.REACT_APP_API_URL || "http://localhost:8000";
+
+  // ================= STATES =================
   const [text, setText] = useState("");
   const [originalText, setOriginalText] = useState("");
   const [englishText, setEnglishText] = useState("");
@@ -36,7 +41,7 @@ function Convert() {
 
   const { transcript, resetTranscript } = useSpeechRecognition();
 
-  // ---------------- THREE SETUP ----------------
+  // ================= THREE SETUP =================
   useEffect(() => {
 
     ref.flag = false;
@@ -86,10 +91,11 @@ function Convert() {
 
       defaultPose(ref);
     });
-// eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bot]);
 
-  // ---------------- ANIMATION LOOP ----------------
+  // ================= ANIMATION LOOP =================
   ref.animate = () => {
 
     if (!ref.animations || ref.animations.length === 0) {
@@ -144,11 +150,11 @@ function Convert() {
     ref.renderer.render(ref.scene, ref.camera);
   };
 
-  // ---------------- BACKEND CALL ----------------
+  // ================= BACKEND CALL =================
   const translateToISL = async (inputText) => {
     try {
       const res = await fetch(
-        `http://localhost:8000/translate?text=${encodeURIComponent(inputText)}`
+        `${API_URL}/translate?text=${encodeURIComponent(inputText)}`
       );
       return await res.json();
     } catch (err) {
@@ -162,7 +168,7 @@ function Convert() {
     }
   };
 
-  // ---------------- MAIN SIGN FUNCTION ----------------
+  // ================= SIGN FUNCTION =================
   const sign = async (inputText) => {
 
     if (!inputText) return;
@@ -181,6 +187,7 @@ function Convert() {
 
     const unknownWords = result.unknown || [];
 
+    // Animate known words
     for (let word of knownWords) {
       if (words[word]) {
         ref.animations.push(['add-text', word + ' ']);
@@ -188,6 +195,7 @@ function Convert() {
       }
     }
 
+    // Animate unknown words letter-by-letter
     for (let word of unknownWords) {
       for (let ch of word.split('')) {
         if (alphabets[ch]) {
@@ -204,7 +212,7 @@ function Convert() {
     }
   };
 
-  // ---------------- SPEECH ----------------
+  // ================= SPEECH =================
   const startListening = () => {
     SpeechRecognition.startListening({
       continuous: true,
@@ -263,12 +271,7 @@ function Convert() {
             Clear
           </button>
 
-          <textarea
-            rows={3}
-            value={transcript}
-            readOnly
-            className='w-100'
-          />
+          <textarea rows={3} value={transcript} readOnly className='w-100' />
 
           <button
             onClick={() => sign(transcript)}
@@ -278,11 +281,7 @@ function Convert() {
           </button>
 
           <label>Text Input</label>
-          <textarea
-            rows={3}
-            ref={textFromInput}
-            className='w-100'
-          />
+          <textarea rows={3} ref={textFromInput} className='w-100' />
 
           <button
             onClick={() => sign(textFromInput.current.value)}
