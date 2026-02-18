@@ -27,7 +27,7 @@ with col1:
 
     user_input = st.text_area(
         "",
-        placeholder="Example: My name is Manishka",
+        placeholder="Example: i will go tomorrow",
         height=150
     )
 
@@ -145,7 +145,6 @@ ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN
 **Adjectives & Others:**  
 HAPPY, SAD, BIG, SMALL, GOOD, BAD, LOVE, HELP, STOP, START, TIME, PERSON
 """)
-
 # ================= ANIMATION PREVIEW =================
 st.markdown("---")
 st.markdown("## 🎬 3D ISL Animation Preview")
