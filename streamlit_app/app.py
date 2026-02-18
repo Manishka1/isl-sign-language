@@ -93,30 +93,29 @@ if translate_btn:
 
             st.markdown("---")
 
-# 🔥 MODEL EXPLANATION (MOVE OUTSIDE)
-st.markdown("---")
-st.markdown("### 📊 Model Explanation")
-st.write("""
-The system extracts grammatical roles using NLP and restructures
-the sentence according to ISL grammar order.
+            # 🔥 MODEL EXPLANATION (MOVE OUTSIDE)
+            st.markdown("---")
+            st.markdown("### 📊 Model Explanation")
+            st.write("""
+            The system extracts grammatical roles using NLP and restructures
+            the sentence according to ISL grammar order.
 
-Words not found in the animation dictionary are converted
-to alphabet animations.
+            Words not found in the animation dictionary are converted
+            to alphabet animations.
 
-The model is trained on 60+ predefined animation-supported words:
+            The model is trained on 60+ predefined animation-supported words:
 
-I, YOU, HE, SHE, WE,  
-MOTHER, FATHER, BROTHER, SISTER, FRIEND,  
-SCHOOL, COLLEGE, HOME, OFFICE, MARKET,  
-FOOD, WATER, BOOK, MONEY, PHONE,  
-GO, COME, EAT, DRINK, READ, WRITE,  
-PLAY, WORK, STUDY, BUY,  
-TODAY, TOMORROW, YESTERDAY, NOW, LATER,  
-YES, NO, THANK, SORRY, PLEASE,  
-ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,  
-HAPPY, SAD, BIG, SMALL, GOOD, BAD, LOVE, HELP, STOP, START, TIME, PERSON
-""")
-
+            I, YOU, HE, SHE, WE,  
+            MOTHER, FATHER, BROTHER, SISTER, FRIEND,  
+            SCHOOL, COLLEGE, HOME, OFFICE, MARKET,  
+            FOOD, WATER, BOOK, MONEY, PHONE,  
+            GO, COME, EAT, DRINK, READ, WRITE,  
+            PLAY, WORK, STUDY, BUY,  
+            TODAY, TOMORROW, YESTERDAY, NOW, LATER,  
+            YES, NO, THANK, SORRY, PLEASE,  
+            ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,  
+            HAPPY, SAD, BIG, SMALL, GOOD, BAD, LOVE, HELP, STOP, START, TIME, PERSON
+            """)
 
         except Exception as e:
             st.error("❌ Backend not reachable.")
