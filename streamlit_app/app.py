@@ -1,18 +1,18 @@
 import streamlit as st
 import requests
 
-# 🔥 Replace with your Render backend URL
-API_URL = "https://your-backend.onrender.com"
+# Replace with your Render backend URL
+API_URL = "https://isl-sign-language.onrender.com"
 
 st.set_page_config(
-    page_title="🤟 ISL Translator",
+    page_title="ISL Translator",
     layout="wide",
     page_icon="🤟"
 )
 
 # ================= HEADER =================
 st.markdown("""
-# 🤟 AI Powered ISL Translator
+# AI Powered ISL Translator
 Translate **English or Hindi** sentences into structured **Indian Sign Language (ISL)** grammar.
 """)
 
@@ -24,7 +24,7 @@ col1, col2 = st.columns([2, 1])
 # ================= INPUT COLUMN =================
 with col1:
 
-    st.subheader("📝 Enter Your Sentence")
+    st.subheader("Enter Your Sentence:")
 
     user_input = st.text_area(
         "",
@@ -37,7 +37,7 @@ with col1:
 # ================= INFO COLUMN =================
 with col2:
     st.info("""
-### 🧠 How This Model Works
+### How This Model Works
 
 1. Detects input language (Hindi/English)
 2. Converts Hindi → English (if needed)
@@ -119,7 +119,7 @@ st.markdown("""
 <div style="text-align:center;">
     <a href="https://isl-sign-languag-iw3z-gv6f956q6-manishka1s-projects.vercel.app/" target="_blank">
         <button style="font-size:20px;padding:12px 30px;background-color:#0E1117;color:white;border-radius:8px;">
-            🤟 Open 3D ISL Animation App
+            Open 3D ISL Animation App
         </button>
     </a>
 </div>
