@@ -1,20 +1,64 @@
 import streamlit as st
 import requests
 
-# 🔥 Replace with your actual Render backend URL
-API_URL = "https://isl-sign-language.onrender.com/"
+# 🔥 Replace with your Render backend URL
+API_URL = "https://your-backend.onrender.com"
 
-st.set_page_config(page_title="ISL Translator", page_icon="🤟")
+st.set_page_config(
+    page_title="🤟 ISL Translator",
+    layout="wide",
+    page_icon="🤟"
+)
 
-st.title("🤟 ISL Translator")
-st.write("Translate English or Hindi sentences into ISL structure.")
+# ================= HEADER =================
+st.markdown("""
+# 🤟 AI Powered ISL Translator
+Translate **English or Hindi** sentences into structured **Indian Sign Language (ISL)** grammar.
+""")
 
-user_input = st.text_area("Enter text:")
+st.markdown("---")
 
-if st.button("Translate"):
+# ================= LAYOUT =================
+col1, col2 = st.columns([2, 1])
+
+# ================= INPUT COLUMN =================
+with col1:
+
+    st.subheader("📝 Enter Your Sentence")
+
+    user_input = st.text_area(
+        "",
+        placeholder="Example: My name is Manishka",
+        height=150
+    )
+
+    translate_btn = st.button("🚀 Translate to ISL")
+
+# ================= INFO COLUMN =================
+with col2:
+    st.info("""
+### 🧠 How This Model Works
+
+1. Detects input language (Hindi/English)
+2. Converts Hindi → English (if needed)
+3. Uses NLP (spaCy) to detect:
+   - Subject
+   - Object
+   - Verb
+   - Time words
+4. Reorders words into ISL grammar:
+   
+   **TIME → SUBJECT → ADJECTIVE → OBJECT → NUMBER → VERB**
+5. Unknown words → Letter-by-letter fallback
+""")
+
+st.markdown("---")
+
+# ================= OUTPUT SECTION =================
+if translate_btn:
 
     if not user_input.strip():
-        st.warning("Please enter text.")
+        st.warning("⚠ Please enter a sentence.")
     else:
         try:
             response = requests.get(
@@ -24,19 +68,63 @@ if st.button("Translate"):
 
             data = response.json()
 
-            st.subheader("Original")
-            st.write(data["original"])
+            out1, out2, out3 = st.columns(3)
 
-            st.subheader("English")
-            st.write(data["english"])
+            with out1:
+                st.markdown("### 📌 Original Input")
+                st.success(data["original"])
 
-            st.subheader("ISL Output")
-            st.success(data["isl"])
+            with out2:
+                st.markdown("### 🌍 English Translation")
+                st.success(data["english"])
 
+            with out3:
+                st.markdown("### 🤟 ISL Structured Output")
+                if data["isl"]:
+                    st.success(data["isl"])
+                else:
+                    st.warning("No structured output generated.")
+
+            # Fallback
             if data["unknown"]:
-                st.subheader("Letter Fallback")
-                st.write(", ".join(data["unknown"]))
+                st.markdown("---")
+                st.markdown("### 🔤 Letter-by-Letter Fallback")
+                st.write(" → ".join(data["unknown"]))
+
+            st.markdown("---")
+
+            # Model explanation
+            st.markdown("### 📊 Model Explanation")
+            st.write("""
+The system extracts grammatical roles using NLP and restructures
+the sentence according to ISL grammar order.
+Words not found in the animation dictionary are converted
+to alphabet animations.
+""")
 
         except Exception as e:
-            st.error("Backend not reachable.")
+            st.error("❌ Backend not reachable.")
             st.write(str(e))
+
+# ================= ANIMATION PREVIEW =================
+st.markdown("---")
+
+st.markdown("## 🎬 3D ISL Animation Preview")
+
+st.markdown("""
+See how the structured output works with a 3D animated avatar.
+""")
+
+st.markdown("""
+<div style="text-align:center;">
+    <a href="https://isl-sign-languag-iw3z-gv6f956q6-manishka1s-projects.vercel.app/" target="_blank">
+        <button style="font-size:20px;padding:12px 30px;background-color:#0E1117;color:white;border-radius:8px;">
+            🤟 Open 3D ISL Animation App
+        </button>
+    </a>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+st.caption("Built with FastAPI + spaCy NLP + React Three.js Animation")
