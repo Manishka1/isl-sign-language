@@ -4,28 +4,19 @@ import spacy
 from langdetect import detect
 from googletrans import Translator
 
-# -----------------------------------
-# Initialize FastAPI
-# -----------------------------------
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # allow React frontend
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# -----------------------------------
-# Load ML Models
-# -----------------------------------
 nlp = spacy.load("en_core_web_sm")
 translator = Translator()
 
-# -----------------------------------
-# Controlled 60 Word Vocabulary
-# -----------------------------------
 KNOWN_WORDS = {
     "I","YOU","HE","SHE","WE",
     "MOTHER","FATHER","BROTHER","SISTER","FRIEND",
@@ -49,9 +40,35 @@ NUMBER_MAP = {
 TIME_WORDS = {"today","tomorrow","yesterday","now","later"}
 
 # -----------------------------------
-# English → ISL Grammar Engine (ML via spaCy)
+# Letter-by-letter fallback
 # -----------------------------------
-def english_to_isl(sentence):
+def word_to_letters(word: str):
+    """Converts unknown word to list of individual capital letters"""
+    return [char.upper() for char in word if char.isalpha()]
+
+# -----------------------------------
+# Single word handler
+# -----------------------------------
+def handle_single_word(word: str):
+    upper = word.upper()
+    if upper in KNOWN_WORDS:
+        return {
+            "isl": upper,
+            "unknown": [],
+            "spelled": []
+        }
+    else:
+        letters = word_to_letters(word)
+        return {
+            "isl": " ".join(letters),
+            "unknown": [upper],
+            "spelled": [upper]  # tells frontend these were spelled out
+        }
+
+# -----------------------------------
+# English → ISL Grammar Engine
+# -----------------------------------
+def english_to_isl(sentence: str):
     doc = nlp(sentence.lower())
 
     time = []
@@ -61,6 +78,7 @@ def english_to_isl(sentence):
     numbers = []
     adjectives = []
     unknown = []
+    spelled = []
 
     for token in doc:
 
@@ -75,39 +93,70 @@ def english_to_isl(sentence):
             time.append(token.text.upper())
             continue
 
-        # Subject detection
+        # Subject
         if token.dep_ in ["nsubj", "nsubjpass"]:
-            subject.append(token.text.upper())
+            upper = token.text.upper()
+            if upper in KNOWN_WORDS:
+                subject.append(upper)
+            else:
+                unknown.append(upper)
+                spelled.append(upper)
+                subject.extend(word_to_letters(token.text))
             continue
 
-        # Object detection
+        # Object
         if token.dep_ in ["dobj", "pobj", "attr"]:
-            obj.append(token.text.upper())
+            upper = token.text.upper()
+            if upper in KNOWN_WORDS:
+                obj.append(upper)
+            else:
+                unknown.append(upper)
+                spelled.append(upper)
+                obj.extend(word_to_letters(token.text))
             continue
 
-        # Main verb (ignore auxiliary)
+        # Main verb
         if token.pos_ == "VERB" and token.dep_ != "aux":
             lemma = token.lemma_.upper()
-            verb.append(lemma)
+            if lemma in KNOWN_WORDS:
+                verb.append(lemma)
+            else:
+                unknown.append(lemma)
+                spelled.append(lemma)
+                verb.extend(word_to_letters(token.lemma_))
             continue
 
         # Adjectives
         if token.pos_ == "ADJ":
-            adjectives.append(token.text.upper())
+            upper = token.text.upper()
+            if upper in KNOWN_WORDS:
+                adjectives.append(upper)
+            else:
+                unknown.append(upper)
+                spelled.append(upper)
+                adjectives.extend(word_to_letters(token.text))
             continue
 
     ordered = time + subject + adjectives + obj + numbers + verb
 
-    filtered = []
-    for w in ordered:
-        if w in KNOWN_WORDS:
-            filtered.append(w)
-        else:
-            unknown.append(w)
+    # --- FIX: if nothing was parsed at all (e.g. loose nouns/words) ---
+    # fallback: try every token directly
+    if not ordered:
+        for token in doc:
+            if token.is_stop or token.is_punct:
+                continue
+            upper = token.text.upper()
+            if upper in KNOWN_WORDS:
+                ordered.append(upper)
+            else:
+                unknown.append(upper)
+                spelled.append(upper)
+                ordered.extend(word_to_letters(token.text))
 
     return {
-        "isl": " ".join(filtered),
-        "unknown": unknown
+        "isl": " ".join(ordered),
+        "unknown": unknown,
+        "spelled": spelled
     }
 
 # -----------------------------------
@@ -116,25 +165,31 @@ def english_to_isl(sentence):
 @app.get("/translate")
 def translate(text: str):
 
-    original_text = text
+    original_text = text.strip()
 
     # Detect language
     try:
-        lang = detect(text)
+        lang = detect(original_text)
     except:
         lang = "en"
 
-    english_text = text
+    english_text = original_text
 
-    # If Hindi → translate to English
+    # Hindi → English
     if lang == "hi":
-        english_text = translator.translate(text, src="hi", dest="en").text
+        english_text = translator.translate(original_text, src="hi", dest="en").text
 
-    result = english_to_isl(english_text)
+    # --- FIX: Single word shortcut ---
+    words = english_text.strip().split()
+    if len(words) == 1:
+        result = handle_single_word(words[0])
+    else:
+        result = english_to_isl(english_text)
 
     return {
         "original": original_text,
         "english": english_text,
         "isl": result["isl"],
-        "unknown": result["unknown"]
+        "unknown": result["unknown"],
+        "spelled": result.get("spelled", [])  # new field — tells frontend what was spelled
     }
