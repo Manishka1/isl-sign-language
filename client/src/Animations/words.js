@@ -12,7 +12,8 @@ var wordList = [
     'PERSON',
     'I',
     'YOU',
-    'TIME'
+    'TIME',
+    'FOOD'
 ];
 
 
