@@ -4,6 +4,7 @@ import { PERSON } from './Words/PERSON';
 import { I } from './Words/I';
 import { YOU } from './Words/YOU';
 import { TIME } from './Words/TIME';
+import { FOOD } from './Words/FOOD';
 
 
 var wordList = [
@@ -24,5 +25,6 @@ export {
     I,
     YOU,
     TIME,
+    FOOD,
     wordList
 };
