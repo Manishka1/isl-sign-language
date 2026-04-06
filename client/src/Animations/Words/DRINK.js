@@ -35,12 +35,11 @@ export const DRINK = (ref) => {
     // RESET — only what we changed above
     animations = []
 
-    animations.push(["mixamorigRightArm", "rotation", "x", 0, "-"]);
-    animations.push(["mixamorigRightArm", "rotation", "y", 0, "-"]);
-    animations.push(["mixamorigRightArm", "rotation", "z", 1.0472, "+"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "x", 0, "+"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "y", 2.0884, "+"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "z", -0.1216, "-"]);
+    animations.push(["mixamorigRightArm", "rotation", "x", -0.7854, "-"]);
+    animations.push(["mixamorigRightArm", "rotation", "y", 0.5236, "+"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "x", -1.0472, "-"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "y", 1.5708, "+"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "z", 1.0472, "+"]);
     animations.push(["mixamorigRightHand", "rotation", "x", 0, "-"]);
     animations.push(["mixamorigRightHand", "rotation", "y", 0, "-"]);
     animations.push(["mixamorigRightHand", "rotation", "z", 0, "+"]);
