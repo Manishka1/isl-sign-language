@@ -2,9 +2,7 @@ export const DRINK = (ref) => {
 
     let animations = []
 
-    // POSE — from bone tester
-    animations.push(["mixamorigHips", "rotation", "x", -1.5708, "-"]);
-    animations.push(["mixamorigLeftArm", "rotation", "z", -1.3116, "-"]);
+    // POSE
     animations.push(["mixamorigRightArm", "rotation", "x", 0.1784, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "y", 1.1484, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "z", 0.0184, "+"]);
@@ -35,11 +33,9 @@ export const DRINK = (ref) => {
 
     ref.animations.push(animations);
 
-    // RESET — every bone back to 0, direction flipped
+    // RESET — only right arm/hand bones, no Hips or LeftArm
     animations = []
 
-    animations.push(["mixamorigHips", "rotation", "x", 0, "+"]);
-    animations.push(["mixamorigLeftArm", "rotation", "z", 0, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "x", 0, "-"]);
     animations.push(["mixamorigRightArm", "rotation", "y", 0, "-"]);
     animations.push(["mixamorigRightArm", "rotation", "z", 0, "-"]);
