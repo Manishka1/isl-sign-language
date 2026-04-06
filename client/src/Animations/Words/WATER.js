@@ -2,13 +2,11 @@ export const WATER = (ref) => {
 
     let animations = []
 
-    animations.push(["mixamorigRightArm", "rotation", "x", -Math.PI/6, "-"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "x", -0.6216, "-"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "y", 1.0084, "+"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "z", 1.3684, "+"]);
-    animations.push(["mixamorigRightHand", "rotation", "x", 2.1984, "+"]);
-    animations.push(["mixamorigRightHand", "rotation", "y", 0.1484, "+"]);
-    animations.push(["mixamorigRightHand", "rotation", "z", -0.7916, "-"]);
+    animations.push(["mixamorigRightArm", "rotation", "x", -0.7854, "-"]);
+    animations.push(["mixamorigRightArm", "rotation", "y", 0.5236, "+"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "x", -1.0472, "-"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "y", 1.5708, "+"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "z", 1.0472, "+"]);
     animations.push(["mixamorigRightHandMiddle1", "rotation", "x", -0.1816, "-"]);
     animations.push(["mixamorigRightHandMiddle1", "rotation", "z", 1.3384, "+"]);
     animations.push(["mixamorigRightHandMiddle2", "rotation", "z", 1.5884, "+"]);
