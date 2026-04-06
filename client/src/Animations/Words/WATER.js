@@ -1,7 +1,7 @@
 export const WATER = (ref) => {
 
     let animations = []
-
+    animations.push(["mixamorigHips", "rotation", "x", -1.5708, "-"]);
     animations.push(["mixamorigRightArm", "rotation", "x", 0.1784, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "y", 0.9784, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "z", 0.0184, "+"]);
