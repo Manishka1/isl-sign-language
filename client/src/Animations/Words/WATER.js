@@ -37,10 +37,10 @@ export const WATER = (ref) => {
 
     animations.push(["mixamorigRightArm", "rotation", "x", 0, "-"]);
     animations.push(["mixamorigRightArm", "rotation", "y", 0, "-"]);
-    animations.push(["mixamorigRightArm", "rotation", "z", 1.5708, "+"]);
+    animations.push(["mixamorigRightArm", "rotation", "z", 1.0472, "+"]);
     animations.push(["mixamorigRightForeArm", "rotation", "x", 0, "+"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "y", 0, "-"]);
-    animations.push(["mixamorigRightForeArm", "rotation", "z", 0, "-"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "y", 2.0884, "+"]);
+    animations.push(["mixamorigRightForeArm", "rotation", "z", -0.1216, "-"]);
     animations.push(["mixamorigRightHand", "rotation", "x", 0, "-"]);
     animations.push(["mixamorigRightHand", "rotation", "y", 0, "-"]);
     animations.push(["mixamorigRightHand", "rotation", "z", 0, "+"]);
