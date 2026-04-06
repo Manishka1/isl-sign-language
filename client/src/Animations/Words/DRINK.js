@@ -2,7 +2,6 @@ export const DRINK = (ref) => {
 
     let animations = []
 
-    // POSE
     animations.push(["mixamorigRightArm", "rotation", "x", 0.1784, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "y", 1.1484, "+"]);
     animations.push(["mixamorigRightArm", "rotation", "z", 0.0184, "+"]);
@@ -33,7 +32,7 @@ export const DRINK = (ref) => {
 
     ref.animations.push(animations);
 
-    // RESET — only right arm/hand bones, no Hips or LeftArm
+    // RESET — only what we changed above
     animations = []
 
     animations.push(["mixamorigRightArm", "rotation", "x", 0, "-"]);
